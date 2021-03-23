@@ -7,6 +7,7 @@ class Ataque:
     def __del__(self):
         self.armas = []
 
+    #Esse método está retornando True mesmo quando está errado
     def conferirAtaque(self, defesaDoMonstro):
         count = 0
 
@@ -19,7 +20,8 @@ class Ataque:
 
             count += 1
 
-        return self.conferirSeGanhou
+        #print("armas corretas na posição correta: " + str(self.armasCorretasNaPosicaoCorreta))
+        return self.conferirSeGanhou()
 
     def acertouAtaque(self):
         self.armasCorretasNaPosicaoCorreta += 1
@@ -33,3 +35,31 @@ class Ataque:
 
 class AtaqueDummy(Ataque):
     pass
+
+class AtaqueSpy(Ataque):
+    def __init__(self, armas):
+        self.armas = armas
+        self.armasCorretasNaPosicaoCorreta = 0
+        self.armasCorretasNaPosicaoErrada = 0
+        self.acertouAlgumAtaque = False
+        self.acertouAlgumaArma = False
+
+    def __del__(self):
+        self.armas = []
+
+    def acertouAtaque(self):
+        self.armasCorretasNaPosicaoCorreta += 1
+        self.acertouAlgumAtaque = True
+
+    def acertouArma(self):
+        self.armasCorretasNaPosicaoErrada += 1
+        self.acertouAlgumaArma = True
+
+class AtaqueStub(Ataque):
+    def __init__(self):
+        self.armas = [1, 5, 2, 4]
+        self.armasCorretasNaPosicaoCorreta = 0
+        self.armasCorretasNaPosicaoErrada = 0
+
+    def __del__(self):
+        self.armas = []

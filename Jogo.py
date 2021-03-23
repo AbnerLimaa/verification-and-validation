@@ -14,6 +14,9 @@ class Jogo:
         del self.monstro
         self.vitoria = False
 
+    # A classe jogador não possui o método perderVida
+    # Deve ser substituido pelo método sofrerDano
+    # Corrigido na classe JogoDummy
     def atacar(self, ataque):
         if self.monstro.defesa == []:
             self.monstro.gerarDefesa()
@@ -22,3 +25,13 @@ class Jogo:
 
         if not self.vitoria:
             self.jogador.perderVida()
+
+class JogoDummy(Jogo):
+    def atacar(self, ataque):
+        if self.monstro.defesa == []:
+            self.monstro.gerarDefesa()
+           
+        self.vitoria = ataque.conferirAtaque(self.monstro.defesa)
+
+        if not self.vitoria:
+            self.jogador.sofrerDano()
